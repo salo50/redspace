@@ -1,0 +1,81 @@
+policy_module(redspace, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type redspace_t;
+type redspace_exec_t;
+init_daemon_domain(redspace_t, redspace_exec_t)
+
+permissive redspace_t;
+
+type redspace_initrc_exec_t;
+init_script_file(redspace_initrc_exec_t)
+
+type redspace_conf_t;
+files_type(redspace_conf_t)
+
+type redspace_var_lib_t;
+files_type(redspace_var_lib_t)
+
+type redspace_var_run_t;
+files_type(redspace_var_run_t)
+
+type redspace_port_t;
+corenet_port(redspace_port_t)
+
+########################################
+#
+# redspace local policy
+#
+allow redspace_t self:process { fork };
+
+allow redspace_t self:fifo_file rw_fifo_file_perms;
+allow redspace_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(redspace_t, redspace_conf_t, redspace_conf_t)
+manage_files_pattern(redspace_t, redspace_conf_t, redspace_conf_t)
+
+manage_dirs_pattern(redspace_t, redspace_var_lib_t, redspace_var_lib_t)
+manage_files_pattern(redspace_t, redspace_var_lib_t, redspace_var_lib_t)
+files_var_lib_filetrans(redspace_t, redspace_var_lib_t, { dir file })
+
+manage_dirs_pattern(redspace_t, redspace_var_run_t, redspace_var_run_t)
+manage_files_pattern(redspace_t, redspace_var_run_t, redspace_var_run_t)
+
+sysnet_dns_name_resolve(redspace_t)
+corenet_all_recvfrom_unlabeled(redspace_t)
+
+allow redspace_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(redspace_t)
+corenet_tcp_sendrecv_generic_node(redspace_t)
+corenet_tcp_sendrecv_all_ports(redspace_t)
+corenet_tcp_bind_generic_node(redspace_t)
+
+gen_require(`
+    type redspace_port_t;
+')
+allow redspace_t redspace_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type redspace_port_t;
+')
+allow redspace_t redspace_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(redspace_t)
+
+files_read_etc_files(redspace_t)
+
+miscfiles_read_localization(redspace_t)
+
+sysnet_dns_name_resolve(redspace_t)
+
+allow redspace_t redspace_exec_t:file execute_no_trans;
+allow redspace_t self:process setsched;
+corecmd_exec_ls(redspace_t)
+corenet_tcp_connect_http_port(redspace_t)
+dev_read_urand(redspace_t)
+fs_getattr_xattr_fs(redspace_t)
+kernel_read_system_state(redspace_t)

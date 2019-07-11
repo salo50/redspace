@@ -1,0 +1,3 @@
+usr/local/bin/redspaced usr/bin
+usr/local/bin/redspace-cli usr/bin
+debian/examples/redspace.conf etc/redspace

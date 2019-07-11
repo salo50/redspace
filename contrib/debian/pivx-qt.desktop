@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=redspace Core
+Comment=redspace P2P Cryptocurrency
+Comment[fr]=redspace, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=redspace, eşten eşe kriptografik sanal para birimi
+Exec=redspace-qt %u
+Terminal=false
+Type=Application
+Icon=redspace128
+MimeType=x-scheme-handler/redspace;
+Categories=Office;Finance;
+StartupWMClass=RedSpace-qt

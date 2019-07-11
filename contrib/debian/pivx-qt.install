@@ -1,0 +1,6 @@
+usr/local/bin/redspace-qt usr/bin
+share/pixmaps/redspace32.xpm usr/share/pixmaps
+share/pixmaps/redspace16.xpm usr/share/pixmaps
+share/pixmaps/redspace128.png usr/share/pixmaps
+debian/redspace-qt.desktop usr/share/applications
+debian/redspace-qt.protocol usr/share/kde4/services/

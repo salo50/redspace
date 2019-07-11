@@ -1,0 +1,8 @@
+/usr/bin/redspace-cli		--	gen_context(system_u:object_r:redspace_exec_t,s0)
+/usr/sbin/redspaced		--	gen_context(system_u:object_r:redspace_exec_t,s0)
+/usr/lib(64)?/redspace/redspaced		--	gen_context(system_u:object_r:redspace_exec_t,s0)
+
+/etc/redspace(/.*)?		gen_context(system_u:object_r:redspace_conf_t,s0)
+/var/lib/redspace(/.*)?		gen_context(system_u:object_r:redspace_var_lib_t,s0)
+
+(/var)?/run/redspaced(/.*)?   gen_context(system_u:object_r:redspace_var_run_t,s0)
